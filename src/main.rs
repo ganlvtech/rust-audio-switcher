@@ -5,9 +5,11 @@ fn main() -> windows_core::Result<()> {
     let args: Vec<String> = std::env::args().collect();
     let _com_releaser = ComReleaser::new()?;
     if args.len() >= 2 {
-        let id = windows_core::HSTRING::from(&args[1]);
-        set_default_device(&id)?;
-        println!("{}", id);
+        for i in 1..args.len() {
+            let id = windows_core::HSTRING::from(&args[i]);
+            set_default_device(&id)?;
+            println!("{}", id);
+        }
     } else {
         let devices_render = list_devices(windows::Win32::Media::Audio::eRender)?;
         for device in devices_render {
